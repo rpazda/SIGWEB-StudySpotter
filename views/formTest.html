@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Forms Test</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <!-- Materialize CDN -->
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <style>
+            body{
+                margin: 0;
+            }
+            #map{
+                width: 100vw;
+                height: 100vh;
+                position: absolute;
+                top: 0px;
+                left: 0px;
+            }
+            #navRow{
+                position: relative;
+                top: 50px;
+                z-index: 10;
+            }
+            #searchBar{
+                background-color: #ffffff;
+                margin: 0;
+            }
+            #search{
+                padding: 0;
+            }
+            #navTrigger{
+                position: absolute;
+                bottom: 16px;
+                right: 42px;
+            }
+            #addTrigger{
+                position: absolute;
+                bottom: 77px;
+                right: 50px;
+            }
+
+            /* Small Devices */
+            @media screen and (max-width: 600px){
+
+            }
+
+            /* Tablet Devices */
+            @media screen and (max-width: 992px){
+
+            }
+
+            /* Desktop */
+            @media screen and (min-width: 992px){
+                #navTrigger{
+                    display: none;
+                }
+                #addTrigger{
+                    bottom: 16px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <ul id="slide-out" class="side-nav fixed">
+            <li>
+                <img src="http://placehold.it/400x200?text=Icon" />
+            </li>
+            <li class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">search</i>
+                    <input class="z-depth-2" type="search" id="searchBar">
+                </div>
+            </li>
+            <li class="row">
+                <div class="col s11">
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="http://placehold.it/400x200?text=Building">
+                            <span class="card-title">Name</span>
+                        </div>
+                        <div class="card-content">
+                            <p>. . .</p>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <a data-activates="slide-out" class="btn-floating btn-large waves-effect waves-light red button-collapse" id="navTrigger"><i class="material-icons">search</i></a>
+        <button data-target="newModal" id="addTrigger" class="btn-floating waves-effect waves-light amber"><i class="material-icons">add</i></button>
+        <div id="newModal" class="modal">
+            <div class="modal-content">
+                <h4>Add a New Spot</h4>
+                <div class="row">
+                    <form class="col s12">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input type="text" id="name" >
+                                <label for="name">Building Name</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <select>
+                                    <option value="" disabled selected>Choose</option>
+                                    <option value="1">Quiet</option>
+                                    <option value="2">Moderate</option>
+                                    <option value="3">Chatty</option>
+                                    <option value="4">Noisy</option>
+                                </select>
+                                <label>Sound Level</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <label for="outlets"># of Outlets</label>
+                                <p class="range-field">
+                                    <input type="range" id="outlets" min="0" max="50">
+                                </p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a class="modal-action waves-effect btn-flat">Ok</a>
+                <a href="#!" class="modal-action modal-close waves-effect btn-flat">Cancel</a>
+            </div>
+        </div>
+        <div id="map"></div>
+        <script>
+            var marker1, marker2, map, location1, location2;
+            function init(){
+                location1 = {lat: 28.602058, lng: -81.200312};
+                location2 = {lat: 28.602506, lng: -81.200451};
+                map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 17,
+                    center: location1
+                });
+                marker1 = new google.maps.Marker({
+                    position: location1,
+                    map: map
+                });
+                marker2 = new google.maps.Marker({
+                    position: location2,
+                    map: map
+                });
+            }
+        </script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAN2A6ktT_JMVZCP3UFw1SzZ76bdg2Sv4A&callback=init" type="text/javascript" ></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                $(".button-collapse").sideNav({
+                    menuWidth: 400,
+                    draggable: false
+                });
+                $(".modal").modal();
+                $("select").material_select();
+            });
+        </script>
+    </body>
+</html>
