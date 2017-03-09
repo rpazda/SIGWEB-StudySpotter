@@ -1,0 +1,320 @@
+<DOCTYPE! html>
+
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+    <head>
+        <meta name="author" content="Richard Pazda" />
+        <meta charset="UTF-8">
+
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous">
+        </script>
+
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
+
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+
+        <!--FontAwesome-->
+        <script src="https://use.fontawesome.com/808114f81f.js"></script>
+
+        <script src="index.js"></script>
+
+        <style>
+            #map {
+                height: 95%;
+                width: 100%;
+            }
+            
+            #map-container {
+                position: relative;
+            }
+            
+            #map-logo {
+                position: absolute;
+                top: 0;
+                right: 5%;
+                width: 10%;
+            }
+            
+            .btn {
+                margin-top: 10px;
+            }
+            
+            #search-spots-button {
+                position: absolute;
+                bottom: 160px;
+                left: 10px;
+            }
+            
+            #add-spot-button {
+                position: absolute;
+                bottom: 115px;
+                left: 10px;
+            }
+            
+            #saved-spots-button {
+                position: absolute;
+                bottom: 70px;
+                left: 10px;
+            }
+        </style>
+
+    </head>
+
+    <body>
+
+
+        <div>
+
+            <div class="" id="map-container">
+                <div id='map' style="">
+                    <!--Empty div for map to be added-->
+                </div>
+                <img src="crow-full-resolution.png" id="map-logo">
+            </div>
+
+            <div class="">
+                <ul>
+                    <li>
+                        <a href="#" id="search-spots-button" class="btn waves-effect waves-light cyan lighten-3 button-collapse" data-activates="search-spots-slide-out">
+                            <i class="fa fa-search" aria-hidden="true"></i>&nbsp;Search
+                        </a>
+                    </li>
+                    <li>
+                        <button id="add-spot-button" class="btn waves-effect waves-light light-green darken-1" data-target="create-spot-modal">
+                                <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Add spot
+                            </button>
+                    </li>
+                    <li>
+                        <button id="saved-spots-button" class="btn waves-effect waves-light purple lighten-1">
+                                <i class="fa fa-save" aria-hidden="true"></i>&nbsp;View saved spots
+                            </button>
+                    </li>
+                </ul>
+            </div>
+
+
+            <script async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyA4J3mXl9mgqJGlQ1YgbDgqRMEbJDOc8pg&callback=initMap'>
+            </script>
+
+        </div>
+
+        <div class="row" style="margin-top: 20px;">
+
+
+
+        </div>
+
+        <div style="display:none">
+            <div id="info-window-content">
+                <h4>Library, 3rd Floor, NE Corner</h4>
+
+                <div class="col s6">
+                    <ul>
+                        <li><i class="fa fa-battery-full" aria-hidden="true"></i> &nbsp; 1-3 Outlets</li>
+                        <li><i class="fa fa-volume-up" aria-hidden="true"></i> &nbsp; Not loud</li>
+                        <li><i class="fa fa-book"></i> &nbsp; Some Tables</li>
+                        <li><i class="fa fa-coffee" aria-hidden="true"></i> &nbsp; Coffee Nearby</li>
+                        <li><i class="fa fa-star" aria-hidden="true"></i> &nbsp; 4.1 stars</li>
+                    </ul>
+                </div>
+
+                <div class="col s6" style="padding-top: 20px;">
+                    <a class="btn purple accent-1">Details</a> <br />
+                    <a class="btn teal lighten-3" style="margin-top: 5px;">rate</a>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="modal" id="create-spot-modal">
+            <div class="modal-content">
+                <h4>Add a New Spot</h4>
+                <div class="row">
+                    <form class="col s12">
+                        <div class="row">
+                            <div class="switch">
+                                <label>
+                                Indoor Spot
+                                <input type="checkbox" id="indoorOutdoor">
+                                <span class="lever"></span>
+                                Outdoor Spot
+                                </label>
+                            </div>
+
+                            <div class="input-field col s8" id="buildingSelect">
+                                <select>
+                                    <option disabled selected>Select a Building...</option>
+                                    <option>All Knight Study (FC)</option>
+                                    <option>All Knight Study (KP)</option>
+                                    <option>Art Gallery (VAB)</option>
+                                    <option>Barbara Ying Center</option>
+                                    <option>Biological Sciences (BIO)</option>
+                                    <option>Brevard Hall (BRE)</option>
+                                    <option>Bright House Networks Stadium (BHNS)</option>
+                                    <option>Burnett Honors College (BHC)</option>
+                                    <option>Burnett School of Biomedical Sciences (COM)</option>
+                                    <option>Business Administration I (BA1)</option>
+                                    <option>Business Administration II (BA2)</option>
+                                    <option>Career Services and Experiential Learning (CSEL)</option>
+                                    <option>CFE Arena</option>
+                                    <option>Chemistry (CHEM)</option>
+                                    <option>Citrus Hall (CIT)</option>
+                                    <option>Classroom Building I (CB1)</option>
+                                    <option>Classroom Building II (CB2)</option>
+                                    <option>Colbourn Hall (CNH)</option>
+                                    <option>College of Arts & Humanities (CAH)</option>
+                                    <option>College of Sciences Building (CSB)</option>
+                                    <option>Counseling and Psychological Services (CAPS)</option>
+                                    <option>CREOL</option>
+                                    <option>Education (ED)</option>
+                                    <option>Engineering I (ENG1)</option>
+                                    <option>Engineering II (ENG2)</option>
+                                    <option>Fairwinds Alumni Center (ALUM)</option>
+                                    <option>Ferrell Commons - G (FC-G)</option>
+                                    <option>Fraternity and Sorority Life (G415)	</option>
+                                    <option>Global UCF (GB)</option>
+                                    <option>Harris Corporation Engineering Center (HEC)</option>
+                                    <option>Health & Public Affairs I (HPA1)</option>
+                                    <option>Health & Public Affairs II (HPA2)</option>
+                                    <option>Howard Phillips Hall (HPH)</option>
+                                    <option>John C. Hitt Library (LIB)</option>
+                                    <option>John T. Washington Center (JTWC)</option>
+                                    <option>Knightro's (KTRS)</option>
+                                    <option>Knights Plaza I (KP1)</option>
+                                    <option>Libra Community Center (LCC)</option>
+                                    <option>Marketplace Dining Hall (FC-D)</option>
+                                    <option>Mathematical Sciences Building (MSB)</option>
+                                    <option>Millican Hall (MH)</option>
+                                    <option>Nicholson School of Communication (NSC)</option>
+                                    <option>Performing Arts Center (PAC)</option>
+                                    <option>Physical Sciences Building (PSB)</option>
+                                    <option>Psychology Building (PSY)</option>
+                                    <option>Recreation and Wellness Center (RWC Gym)</option>
+                                    <option>Reflection Pond</option>
+                                    <option>Rehearsal Hall (RH)</option>
+                                    <option>Student Union (STUN)</option>
+                                    <option>Teaching Academy (TA)</option>
+                                    <option>Technology Commons I (TC1)</option>
+                                    <option>Technology Commons II (TC2)</option>
+                                    <option>Visual Arts Building (VAB)</option>
+                                    <option>Starbucks (HPA)</option>
+                                    <option>Einstein Bagels (BA1)</option>
+                                    <option>Einstein Bagels (Education)</option>
+                                    <option>Barnes & Noble Cafe (Breezeway)</option>
+                                    <option>Barnes & Noble Cafe (Knights Plaza)</option>
+                                    <option>Kyoto Sushi & Grill</option>
+                                    <option>Smoothie King</option>
+                                    <option>Subway (Knights Plaza)</option>
+                                    <option>Subway (RWC)</option>
+                                    <option>Burger U</option>
+                                    <option>Pop Parlour</option>
+                                    <option>Dunkin Donuts</option>
+                                </select>
+                            </div>
+
+                            <div class="input-field col s6" id="locationFind">
+                                <label>Select Location</label><br><br>
+                                <button id="locationBtnCurrent" class="btn waves-effect waves-light light-green darken-1" onclick="getLocation()">
+                                    <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;Current
+                                </button>
+                                <button id="locationBtnMap" class="btn waves-effect waves-light light-green darken-1" onclick="setLocation()">
+                                    <i class="fa fa-map" aria-hidden="true"></i>&nbsp;On Map
+                                </button>
+                            </div>
+
+                            <div class="input-field col s6" id="coordinates">
+                                <label>Coordinates</label><br>
+                                <p id="coordLoc" <condensed>></p>
+                            </div>
+
+                            <div class="input-field col s12">
+                                <input type="text" id="spot-name">
+                                <label for="spot-name">Spot Name</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <select>
+                                    <option value="" disabled selected>Select a Sound Level...</option>
+                                    <option value="1">Quiet</option>
+                                    <option value="2">Moderate</option>
+                                    <option value="3">Chatty</option>
+                                    <option value="4">Noisy</option>
+                                </select>
+                                <label>Sound Level</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <select>
+                                    <option>None</option>
+                                    <option>1-3</option>
+                                    <option>4-7</option>
+                                    <option>8-10</option>
+                                    <option>>10</option>
+                                </select>
+                                <label># of Outlets</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <select>
+                                    <option>Sparse</option>
+                                    <option>Sometimes</option>
+                                    <option>Usually</option>
+                                    <option>Always</option>
+                                </select>
+                                <label>Seating Availability</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <select>
+                                    <option>1-2</option>
+                                    <option>3-4</option>
+                                    <option>5-6</option>
+                                    <option>7-8</option>
+                                    <option>>8</option>
+                                </select>
+                                <label># of Seats</label>
+                            </div>
+                            <div class="input field col s12">
+                                <div class="switch">
+                                    <label>
+                                        No Coffee Nearby 
+                                        <div class="fa-stack">
+                                            <i class="fa fa-coffee fa-stack-1x" aria-hidden="true"></i>
+                                            <i class="fa fa-ban fa-stack-2x" aria-hidden="true"></i>
+                                        </div>
+                                        <input type="checkbox">
+                                        <span class="lever"></span>
+                                        Coffee Nearby <i class="fa fa-coffee" aria-hidden="true"></i>
+                                    </label>
+                                </div>
+                            </div>
+                            <form class="col s12">
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <textarea id="textarea1" class="materialize-textarea"></textarea>
+                                        <label for="textarea1">Spot Description</label>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a class="modal-action waves-effect btn-flat">Ok</a>
+                <a href="#!" class="modal-action modal-close waves-effect btn-flat">Cancel</a>
+            </div>
+        </div>
+
+        <ul class="side-nav" id="search-spots-slide-out">
+
+        </ul>
+
+        <script>
+            $(document).ready(function() {
+
+            });
+        </script>
+
+    </body>
+
+    </html>
