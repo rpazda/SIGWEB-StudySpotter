@@ -3,7 +3,7 @@ mongoose.Promise = global.Promise;
 
 //Spots schema, helper functions, and hooks
 const spotsSchema = new mongoose.Schema({
-    strict: true
+
     name: {type: String, required: true, trim: true},
     building: {type: String, trim: true},
     location: {
@@ -20,7 +20,7 @@ const spotsSchema = new mongoose.Schema({
 });
 
 //Middleware error checking
-spotsSchema.pre(function(next){
+spotsSchema.pre('save', function(next){
     // 'this' is the spot being saved.
     // Passing an error to next() will cancel the insert
     const spot = this;
@@ -32,11 +32,24 @@ spotsSchema.pre(function(next){
 });
 
 //Middleware for logging saves
-spotsSchema.pre(function(next){
-    const spot = this;
-    console.log("Saving a spot of name: " + spot.name);
+spotsSchema.post('save', function(error, doc, next){
+
+    var errorMessage = `${error.name} error on inserting document to Spots collection:\n\n`;
+
+    for(errorIndex in error.errors){
+        if(error.errors.hasOwnProperty(errorIndex)){
+            errorMessage += `${error.errors[errorIndex].message}\n`;
+        }
+    }
+
+    next(new Error(errorMessage));
+});
+
+spotsSchema.post('save', function(doc, next){
+    console.log("Record Saved");
     next();
-})
+});
+
 
 //Create model class
 const SpotsModelClass = mongoose.model('spots', spotsSchema);
