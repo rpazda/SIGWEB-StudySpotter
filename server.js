@@ -1,17 +1,16 @@
 var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
-var MongoClient = require('mongodb').MongoClient, assert = require('assert');
+var mongoose = require('mongoose');
+var assert = require('assert');
 var config = require('./config.secret.json');
 
 var url = config.DBURL;
 
-MongoClient.connect(url, function(err, db) {
-  assert.equal(null, err);
-  console.log("Connected successfully to server");
+//Database setup
+mongoose.Promise = global.Promise;
 
-  db.close();
-});
+mongoose.connect('mongodb://localhost/StudySpotter');
 
 var index = require('./routes/index');
 
