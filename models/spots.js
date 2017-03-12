@@ -19,7 +19,8 @@ const spotsSchema = new mongoose.Schema({
     seatCount: {type: String, required: true, enum: ["1-2", "3-4", "5-6", "7-8", ">8"]},
     coffeeNearby: {type: Boolean, required: true},
     description: {type: String, required: true, trim: true},
-
+    createdOn: {type: Date, required: true},
+    updatedOn: {type: Date, required: true}
 });
 
 //Middleware error checking
@@ -32,6 +33,20 @@ spotsSchema.pre('save', function(next){
     } else {
         next();
     }
+});
+
+//Set the createdOn and first lastUpdatedOn fields
+spotsSchema.pre('save', function(next){
+    const spot = this;
+    const now  = new Date();
+    spot.createdOn = now;
+    spot.updatedOn = now;
+    next();
+});
+
+//Update the updatedOn field on update
+spotsSchema.pre('update', function(next){
+  this.update({},{ $set: { updatedOn: new Date() } });
 });
 
 //Middleware for logging saves
@@ -47,6 +62,7 @@ spotsSchema.post('save', function(error, doc, next){
 
     next(new Error(errorMessage));
 });
+
 
 spotsSchema.post('save', function(doc, next){
     console.log("Record Saved");
