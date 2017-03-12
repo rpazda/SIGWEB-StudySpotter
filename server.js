@@ -3,6 +3,8 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var assert = require('assert');
+const morgan = require('morgan');
+
 var config = require('./config.secret.json');
 
 var url = config.DBURL;
@@ -17,6 +19,7 @@ var index = require('./routes/index');
 var port = 3000;
 
 var app = express();
+app.use(morgan('combined'));
 
 //View Engine
 app.set('views', path.join(__dirname, 'views'));
