@@ -13,11 +13,15 @@ const spotsSchema = new mongoose.Schema({
         type: String,
         trim: true
     },
+    buildingID: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'buildings'
+    }
     location: {
         lat: {type: Number, required: true},
         lon: {type: Number, required: true}
     },
-    //To get the actual user
+    //To get the actual user, mapped to User
     postedBy: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'users'
@@ -111,8 +115,9 @@ spotsSchema.post('save', function(error, doc, next){
 });
 
 
+//Logger
 spotsSchema.post('save', function(doc, next){
-    console.log(`Spot ${doc.name} Saved`);
+    console.log(`Spot saved: ${doc.name}`);
     next();
 });
 
