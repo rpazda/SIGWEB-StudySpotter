@@ -49,7 +49,7 @@ userSchema.pre('save', function(next){
 });
 
 //Create model class
-const ModelClass = mongoose.model('user', userSchema);
+const ModelClass = mongoose.model('users', userSchema);
 
 //Export the model
 module.exports = ModelClass;
