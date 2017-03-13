@@ -16,7 +16,7 @@ const spotsSchema = new mongoose.Schema({
     buildingID: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'buildings'
-    }
+    },
     location: {
         lat: {type: Number, required: true},
         lon: {type: Number, required: true}
@@ -65,12 +65,10 @@ const spotsSchema = new mongoose.Schema({
         trim: true
     },
     createdOn: {
-        type: Date,
-        required: true
+        type: Date
     },
     updatedOn: {
-        type: Date,
-        required: true
+        type: Date
     }
 });
 
@@ -88,6 +86,7 @@ spotsSchema.pre('save', function(next){
 
 //Set the createdOn and first lastUpdatedOn fields
 spotsSchema.pre('save', function(next){
+    console.log("Heyo?");
     const spot = this;
     const now  = new Date();
     spot.createdOn = now;
