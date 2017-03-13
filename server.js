@@ -6,6 +6,7 @@ var assert = require('assert');
 const morgan = require('morgan');
 
 var config = require('./config.secret.json');
+const api = require('./routes/api');
 
 var url = config.DBURL;
 
@@ -34,6 +35,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 app.use('/', index);
+app.use('/api', api);
 
 app.listen(port, function(){
 	console.log('Server started on port '+port);
