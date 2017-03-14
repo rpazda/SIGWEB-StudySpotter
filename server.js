@@ -12,15 +12,14 @@ var url = config.DBURL;
 
 //Database setup
 mongoose.Promise = global.Promise;
-
 mongoose.connect('mongodb://localhost/StudySpotter');
 
 var index = require('./routes/index');
 
-var port = 3000;
+//Set up port 
+var port = process.env.PORT || 3000;
 
 var app = express();
-app.use(morgan('combined'));
 
 //View Engine
 app.set('views', path.join(__dirname, 'views'));
@@ -34,9 +33,14 @@ app.use(express.static(path.join(__dirname, 'client')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
-app.use('/', index);
-app.use('/api', api);
+// Logging Middleware
+app.use(morgan('combined'));
 
+//Set routes
+app.use('/api', api);
+app.use('/', index);
+
+//Start app
 app.listen(port, function(){
 	console.log('Server started on port '+port);
 });
