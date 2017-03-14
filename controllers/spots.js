@@ -9,7 +9,7 @@ function getSpot(req, res, next){
     if(!req.params.id)
         return next();
 
-    Spots.find(new ObjectId(req.params.id))
+    Spots.findOne(new ObjectId(req.params.id))
     .then(function(docs){
         res.send(docs);
     })

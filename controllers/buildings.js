@@ -12,6 +12,16 @@ function getAllBuildings(req, res, next){
     });
 }
 
+function getOneBuilding(req, res, next){
+    Buildings.findOne(new ObjectId(req.params.id))
+    .then(function(doc){
+        res.send(doc);
+    })
+    .catch(function(err){
+        res.status(500).send(err.message);
+    })
+}
+
 function createBuilding(req, res, next){
     const newBuilding = new Buildings(req.body);
     newBuilding.save()
@@ -26,5 +36,6 @@ function createBuilding(req, res, next){
 
 module.exports = {
     getAll: getAllBuildings,
+    getOne: getOneBuilding,
     create: createBuilding
 }

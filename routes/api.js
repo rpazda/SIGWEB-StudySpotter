@@ -5,14 +5,11 @@ const BuildingController = require('../controllers/buildings');
 
 //Spots API endpoint
 router.post('/spots', SpotController.create);
-router.get('/spots/:id', function(req, res, next){
-    if(req.params.id)
-        SpotController.getOne(req, res, next);
-    else
-        SpotController.getAll(req, res, next);
-});
+router.get('/spots/:id', SpotController.getOne);
+router.get('/spots', SpotController.getAll);
 
 //Buildings API endpoint
+router.get('/buildings/:id', BuildingController.getOne);
 router.get('/buildings', BuildingController.getAll);
 router.post('/buildings', BuildingController.create);
 
