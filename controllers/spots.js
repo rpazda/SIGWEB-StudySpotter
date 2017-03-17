@@ -14,7 +14,7 @@ function getSpot(req, res, next){
         res.send(docs);
     })
     .catch(function(err){
-        res.status(422).send(err.message)
+        res.status(422).send({error:err.message})
     });
 }
 
@@ -27,7 +27,7 @@ function getAllSpots(req, res, next){
         res.send(docs);
     })
     .catch(function(err){
-        res.status(422).send(err.message)
+        res.status(422).send({error:err.message})
     });
 }
 
@@ -37,11 +37,11 @@ function createSpot(req, res, next){
     const newSpot = new Spots(req.body);
 
     newSpot.save()
-    .then(function(doc){
-        res.send({success: true, id: doc.id});
+    .then(function(spot){
+        res.json({success: true, id: spot.id});
     })
     .catch(function(err){
-        return res.status(422).send(err.message);
+        return res.status(422).send({error:err.message});
     })
 }
 
