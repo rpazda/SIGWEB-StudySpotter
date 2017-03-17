@@ -23,8 +23,7 @@ const commentsSchema = new mongoose.Schema({
         required: true
     },
     createdOn: {
-        type: Date,
-        required: true
+        type: Date
     }
 });
 
@@ -33,6 +32,15 @@ commentsSchema.pre('save', function(next){
     this.createdOn = new Date();
     next();
 });
+
+//Middleware to make sure the comment is authored
+commentsSchema.pre('save', function(next){
+    //Does not have either createdByName or createdBy
+    if( !this.createdByName && !this.createdBy )
+        return next(new Error("There must be either a createdByName or a createdBy field"));
+    else
+        return next();
+})
 
 //Post save logger
 commentsSchema.post('save', function(doc, next){
