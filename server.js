@@ -1,21 +1,23 @@
 var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
-var MongoClient = require('mongodb').MongoClient, assert = require('assert');
+var mongoose = require('mongoose');
+var assert = require('assert');
+const morgan = require('morgan');
+
 var config = require('./config.secret.json');
+const api = require('./routes/api');
 
 var url = config.DBURL;
 
-MongoClient.connect(url, function(err, db) {
-  assert.equal(null, err);
-  console.log("Connected successfully to server");
-
-  db.close();
-});
+//Database setup
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://localhost/StudySpotter');
 
 var index = require('./routes/index');
 
-var port = 3000;
+//Set up port 
+var port = process.env.PORT || 3000;
 
 var app = express();
 
@@ -31,8 +33,14 @@ app.use(express.static(path.join(__dirname, 'client')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
+// Logging Middleware
+app.use(morgan('combined'));
+
+//Set routes
+app.use('/api', api);
 app.use('/', index);
 
+//Start app
 app.listen(port, function(){
 	console.log('Server started on port '+port);
 });
