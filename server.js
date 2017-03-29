@@ -34,7 +34,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 // Logging Middleware
-app.use(morgan('combined'));
+app.use(morgan('tiny'));
 
 //Set routes
 app.use('/api', api);

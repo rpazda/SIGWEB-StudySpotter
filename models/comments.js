@@ -40,7 +40,7 @@ commentsSchema.pre('save', function(next){
         return next(new Error("There must be either a createdByName or a createdBy field"));
     else
         return next();
-})
+});
 
 //Post save logger
 commentsSchema.post('save', function(doc, next){

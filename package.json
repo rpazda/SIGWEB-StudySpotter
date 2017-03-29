@@ -1,5 +1,5 @@
 {
-  "name": "StudySpotter",
+  "name": "study-spotter",
   "version": "1.0.0",
   "description": "Map-based user interface for locating study spots around the UCF campus",
   "main": "server.js",

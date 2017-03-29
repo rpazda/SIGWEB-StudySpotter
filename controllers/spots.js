@@ -4,8 +4,6 @@ const Spots = require('../models/spots');
 //  GET a spot (given a spot id)
 function getSpot(req, res, next){
 
-    console.log("Get 1 Spot");
-
     if(!req.params.id)
         return next();
 
@@ -19,8 +17,6 @@ function getSpot(req, res, next){
 }
 
 function getAllSpots(req, res, next){
-
-    console.log("Get all spots");
 
     Spots.find({})
     .then(function(docs){
